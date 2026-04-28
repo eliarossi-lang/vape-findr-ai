@@ -14,7 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          age_confirmed: boolean
+          avatar_url: string | null
+          city: string | null
+          created_at: string
+          display_name: string | null
+          flavor_preferences: string[] | null
+          full_name: string | null
+          id: string
+          intensity_preference: string | null
+          nicotine_level: number | null
+          nicotine_type: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age_confirmed?: boolean
+          avatar_url?: string | null
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          flavor_preferences?: string[] | null
+          full_name?: string | null
+          id?: string
+          intensity_preference?: string | null
+          nicotine_level?: number | null
+          nicotine_type?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age_confirmed?: boolean
+          avatar_url?: string | null
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          flavor_preferences?: string[] | null
+          full_name?: string | null
+          id?: string
+          intensity_preference?: string | null
+          nicotine_level?: number | null
+          nicotine_type?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
