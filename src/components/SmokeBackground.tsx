@@ -4,22 +4,26 @@ export const SmokeBackground = () => {
   return (
     <div
       aria-hidden
-      className="fixed inset-0 -z-10 pointer-events-none overflow-hidden"
+      className="fixed inset-0 -z-10 overflow-hidden"
       style={{ background: "#050505" }}
     >
       <LiquidEther
-        colors={["#9d64ff", "#ffffff", "#00cff3"]}
-        mouseForce={34}
-        cursorSize={120}
-        isViscous={false}
+        colors={["#5227FF", "#FF9FFC", "#B497CF"]}
+        mouseForce={20}
+        cursorSize={100}
+        isViscous
+        viscous={30}
+        iterationsViscous={32}
+        iterationsPoisson={32}
         resolution={0.5}
+        isBounce={false}
         autoDemo
         autoSpeed={0.5}
         autoIntensity={2.2}
         takeoverDuration={0.25}
         autoResumeDelay={3000}
         autoRampDuration={0.6}
-        style={{ width: "100%", height: "100%", pointerEvents: "auto" }}
+        style={{ width: "100%", height: "100%" }}
       />
     </div>
   );
