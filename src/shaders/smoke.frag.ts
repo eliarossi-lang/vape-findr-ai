@@ -64,34 +64,40 @@ void main() {
 
   float t = uTime * 0.06;
 
-  // mouse repulsion field
+  // mouse repulsion field — wider, softer falloff for natural displacement
   vec2 toMouse = p - uMouse;
   float md = length(toMouse) + 0.0001;
-  vec2 repel = normalize(toMouse) * exp(-md * 2.2) * uMouseStrength * 0.55;
+  float influence = exp(-md * md * 1.1);              // gaussian, smoother than exp(-d)
+  vec2 repelDir = toMouse / md;
+  // tangential swirl for more natural fluid motion (not pure radial push)
+  vec2 tangent = vec2(-repelDir.y, repelDir.x);
+  vec2 repel = (repelDir * 0.85 + tangent * 0.35) * influence * uMouseStrength * 1.1;
 
   // ambient flow
-  vec2 flow = curl(p * 0.9 + vec2(0.0, t * 0.6), t) * 0.35;
+  vec2 flow = curl(p * 0.9 + vec2(0.0, t * 0.6), t) * 0.4;
   flow += repel;
 
-  // domain-warped fbm density
+  // domain-warped fbm density — denser, more body
   vec2 q = p + flow;
-  float d1 = fbm(vec3(q * 1.1, t));
-  float d2 = fbm(vec3(q * 2.3 + d1, t * 1.3 + 5.0));
-  float density = smoothstep(-0.25, 0.85, d1 * 0.6 + d2 * 0.5);
+  float d1 = fbm(vec3(q * 1.0, t));
+  float d2 = fbm(vec3(q * 2.1 + d1 * 1.2, t * 1.3 + 5.0));
+  float density = smoothstep(-0.45, 0.75, d1 * 0.7 + d2 * 0.55);
 
-  // a "void" carved around the cursor
-  float voidMask = 1.0 - exp(-md * 2.6 / max(uMouseStrength, 0.001));
-  density *= mix(0.35, 1.0, voidMask);
+  // soft void carved around the cursor (gaussian, gentle)
+  float voidMask = 1.0 - influence * uMouseStrength * 0.75;
+  density *= voidMask;
 
-  // cold base
-  vec3 bg = vec3(0.020, 0.022, 0.030);
-  vec3 cold = vec3(0.78, 0.85, 0.95);
+  // cold base — brighter, more present smoke
+  vec3 bg = vec3(0.022, 0.024, 0.032);
+  vec3 cold = vec3(0.88, 0.92, 0.98);
   vec3 smoke = mix(bg, cold, density);
 
   // subtle violet/cyan tinting in highlights
-  float hi = pow(density, 2.2);
-  smoke += uColorA * hi * 0.10;
-  smoke += uColorB * pow(density, 3.0) * 0.06;
+  float hi = pow(density, 2.0);
+  smoke += uColorA * hi * 0.08;
+  smoke += uColorB * pow(density, 3.0) * 0.05;
+
+
 
   // faint floating particles (cheap)
   float sp = snoise(vec3(p * 22.0, t * 4.0));
