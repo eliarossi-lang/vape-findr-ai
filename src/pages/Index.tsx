@@ -10,6 +10,7 @@ import { rankCatalog, type SearchCriteria, type RankedProduct } from "@/lib/sear
 import heroImage from "@/assets/hero-vapor.jpg";
 import { SmokeBackground } from "@/components/SmokeBackground";
 import { Sparkles, ShieldCheck, MapPin, Zap } from "lucide-react";
+import MagicBento from "@/components/MagicBento.jsx";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -108,6 +109,30 @@ const Index = () => {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* MAGIC BENTO */}
+      <section id="scopri" className="container py-16 md:py-24">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">
+            Tutto quello che <span className="text-gradient">VapeSearch</span> fa per te
+          </h2>
+          <p className="text-muted-foreground">
+            Un'esperienza immersiva per trovare, confrontare e scoprire.
+          </p>
+        </div>
+        <MagicBento
+          textAutoHide
+          enableStars
+          enableSpotlight
+          enableBorderGlow
+          enableTilt={false}
+          enableMagnetism
+          clickEffect
+          spotlightRadius={300}
+          particleCount={12}
+          glowColor="157, 100, 255"
+        />
       </section>
 
       {/* RESULTS */}
