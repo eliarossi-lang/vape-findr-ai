@@ -96,16 +96,23 @@
   .magic-bento-card:nth-child(6) { grid-column: 4; grid-row: 3; }
 }
 
-.magic-bento-card--border-glow::after {
+.magic-bento-card--border-glow {
+  border-color: rgba(140, 90, 255, 0.35);
+}
+
+.magic-bento-card--border-glow::before {
   content: '';
   position: absolute;
   inset: 0;
-  padding: 6px;
-  background: radial-gradient(
-    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
-    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.8)) 0%,
-    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.4)) 30%,
-    transparent 60%
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    #9d64ff,
+    #00cff3,
+    #5227ff,
+    #9d64ff,
+    #00cff3,
+    #9d64ff
   );
   border-radius: inherit;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -113,13 +120,41 @@
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px rgba(82, 39, 255, 0.6)) drop-shadow(0 0 10px rgba(0, 207, 243, 0.45));
   z-index: 1;
 }
 
-.magic-bento-card--border-glow:hover {
-  box-shadow: 0 4px 20px rgba(46, 24, 78, 0.4), 0 0 30px rgba(var(--glow-color), 0.2);
+.magic-bento-card--border-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background:
+    radial-gradient(
+      var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+      rgba(0, 207, 243, calc(var(--glow-intensity) * 1)) 0%,
+      rgba(157, 100, 255, calc(var(--glow-intensity) * 0.85)) 35%,
+      rgba(82, 39, 255, calc(var(--glow-intensity) * 0.4)) 60%,
+      transparent 75%
+    );
+  border-radius: inherit;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  filter: drop-shadow(0 0 8px rgba(0, 207, 243, 0.7));
+  z-index: 2;
 }
+
+.magic-bento-card--border-glow:hover {
+  box-shadow:
+    0 4px 24px rgba(82, 39, 255, 0.45),
+    0 0 40px rgba(0, 207, 243, 0.35);
+}
+
 
 .particle-container { position: relative; overflow: hidden; }
 
