@@ -10,6 +10,7 @@ import { rankCatalog, type SearchCriteria, type RankedProduct } from "@/lib/sear
 import heroImage from "@/assets/hero-vapor.jpg";
 import { SmokeBackground } from "@/components/SmokeBackground";
 import { Sparkles, ShieldCheck, MapPin, Zap } from "lucide-react";
+import MagicBento from "@/components/MagicBento.jsx";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
