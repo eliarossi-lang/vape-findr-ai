@@ -8,6 +8,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { catalog, type ProductCategory } from "@/data/catalog";
 import { rankCatalog, type SearchCriteria, type RankedProduct } from "@/lib/searchRank";
 import heroImage from "@/assets/hero-vapor.jpg";
+import { SmokeBackground } from "@/components/SmokeBackground";
 import { Sparkles, ShieldCheck, MapPin, Zap } from "lucide-react";
 
 const Index = () => {
@@ -52,7 +53,8 @@ const Index = () => {
   }, [results, activeCategory]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <SmokeBackground />
       <Header />
 
       {/* HERO */}
@@ -63,10 +65,10 @@ const Index = () => {
           aria-hidden
           width={1920}
           height={1080}
-          className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none mix-blend-screen"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background pointer-events-none" />
-        <div className="absolute inset-0 grid-noise opacity-[0.07] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background pointer-events-none" />
+        <div className="absolute inset-0 grid-noise opacity-[0.04] pointer-events-none" />
 
         <div className="container relative pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="text-center max-w-3xl mx-auto mb-10 animate-fade-up">
