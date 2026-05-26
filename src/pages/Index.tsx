@@ -11,6 +11,7 @@ import heroImage from "@/assets/hero-vapor.jpg";
 import { SmokeBackground } from "@/components/SmokeBackground";
 import { Sparkles, ShieldCheck, MapPin, Zap } from "lucide-react";
 import MagicBento from "@/components/MagicBento.jsx";
+import { usePerfTier } from "@/hooks/usePerfTier";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,8 @@ const Index = () => {
   const [results, setResults] = useState<RankedProduct[] | null>(null);
   const [activeCategory, setActiveCategory] = useState<ProductCategory | "all">("all");
   const [lastQuery, setLastQuery] = useState("");
+  const perfTier = usePerfTier();
+  const isLowPerf = perfTier !== "webgl";
 
   const handleSearch = async (query: string) => {
     setLoading(true);
@@ -123,14 +126,15 @@ const Index = () => {
         </div>
         <MagicBento
           textAutoHide
-          enableStars
-          enableSpotlight
+          enableStars={!isLowPerf}
+          enableSpotlight={!isLowPerf}
           enableBorderGlow
           enableTilt={false}
-          enableMagnetism
-          clickEffect
+          enableMagnetism={!isLowPerf}
+          clickEffect={!isLowPerf}
+          disableAnimations={isLowPerf}
           spotlightRadius={300}
-          particleCount={12}
+          particleCount={isLowPerf ? 0 : 12}
           glowColor="157, 100, 255"
         />
       </section>
