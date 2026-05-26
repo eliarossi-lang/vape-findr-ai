@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
+import { detectPerformance, type PerfTier } from "@/lib/detectPerformance";
+import { SmokeBackgroundCSS } from "./SmokeBackgroundCSS";
 import LiquidEther from "./LiquidEther.jsx";
 
 export const SmokeBackground = () => {
+  const [tier, setTier] = useState<PerfTier | null>(null);
+
+  useEffect(() => {
+    // Defer detection to idle so initial paint isn't blocked
+    const run = () => setTier(detectPerformance());
+    if ("requestIdleCallback" in window) {
+      (window as any).requestIdleCallback(run, { timeout: 500 });
+    } else {
+      setTimeout(run, 0);
+    }
+  }, []);
+
+  // Until detection finishes, render the cheap CSS background to avoid
+  // booting WebGL on low-end devices.
+  if (tier !== "webgl") {
+    return <SmokeBackgroundCSS />;
+  }
+
   return (
     <div
       aria-hidden
